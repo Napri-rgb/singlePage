@@ -45,6 +45,9 @@ export default function Login({ setToken }) {
       password,
     });
     localStorage.setItem("token", email);
+    // set time of login
+    localStorage.setItem("username", email);
+    localStorage.setItem("loginTime", new Date());
     setToken(email);
   };
 

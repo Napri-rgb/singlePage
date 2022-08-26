@@ -8,17 +8,26 @@ import { useEffect, useState } from "react";
 import Header from "./components/header";
 function App() {
   const [token, setToken] = useState();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) setToken(token);
+    if (token) {
+      setToken(token);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
   }, []);
-  if (!token) return <Login setToken={setToken} />;
+  if (!token)
+    return (
+      <>{loading ? <div>loading...</div> : <Login setToken={setToken} />}</>
+    );
   return (
     <div className="App">
-      <Header />
+      <Header setToken={setToken} />
       <Routes>
-        <Route path="/" element={<List />} />
         <Route path="/upload" element={<Upload />} />
+        <Route path="/list" element={<List />} />
         {/* <Route path="/profile" element={<List />} />
         <Route path="/upload" element={<List />} /> */}
       </Routes>
